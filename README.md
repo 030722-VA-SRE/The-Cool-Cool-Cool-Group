@@ -1,2 +1,4 @@
 # The-Cool-Cool-Cool-Group
-Alex Pazmino, Ayan Williams, Jorge lopez
+Team Leader: Alex Pazmino
+Ayan Williams
+Jorge lopez
