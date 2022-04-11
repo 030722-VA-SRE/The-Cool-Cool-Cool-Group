@@ -5,3 +5,5 @@ Did group introductions
   -created group repository
   
 Created secret file for kubernetes.
+
+Will be using Jorge's Ninja project1
