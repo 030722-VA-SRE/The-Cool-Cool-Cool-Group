@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project2-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: project2-app
+  template:
+    metadata:
+      labels:
+        app: project2-app
+    spec:
+      containers:
+      - name: project2-container
+        image: axpazmino/project2:v1
+        ports:
+        - containerPort: 8080
+        env:
+          - name: DB_URL
+            value: jdbc:postgresql://postgres-service:5432/postgres
+          - name: DB_USER
+            value: postgresDB
+          - name: DB_PASS
+            value: basketball
+          # could add an env var for spring profile value: prod
+
+          
