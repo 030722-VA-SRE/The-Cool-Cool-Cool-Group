@@ -23,10 +23,12 @@ import com.revature.service.NinjaService;
 
 @ExtendWith(MockitoExtension.class)
 public class NinjaServiceTest {
+	
 	@Mock
 	private NinjaRepository ninjaRepo;
 	
 	static List<Ninja> ninjaList;
+	
 	@InjectMocks
 	NinjaService ninjaService;
 	
@@ -117,12 +119,13 @@ public class NinjaServiceTest {
 		Mockito.when(ninjaRepo.findByVillage("Hidden-Leaf-Village")).thenReturn(ninjaList);
 		assertEquals(ninjaService.getNinjasByVillage("Hidden-Leaf-Village"),ninjaList);
 
+		
 	}
 	@Test
-	void failNinjaByVillage() {
+	void failNinjaByVillage() throws NinjaNotFoundException{
 		List<Ninja> ninjaList = new ArrayList<Ninja>();
-		Ninja ninja = new Ninja(3,"Kakashi Hatake", "Hidden-Leaf-Village","Lighning Blade","6th Hokage",67);
-		//ninjaList.add(ninja)
+		Ninja ninja = new Ninja(3,"Kakashi Hatake", "Hidden-Rain-Village","Lighning Blade","6th Hokage",67);
+		ninjaList.add(ninja);
 		Mockito.when(ninjaRepo.findByVillage("Hidden-Leaf-Village")).thenReturn(ninjaList);
 		assertThrows(NinjaNotFoundException.class,() -> ninjaService.getNinjasByVillage("Hidden-Leaf-Village") );
 	}

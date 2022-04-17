@@ -3,7 +3,6 @@ package com.revature.servicetest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -13,6 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 import com.revature.exceptions.UserAlreadyExistsException;
 import com.revature.exceptions.UserNotFoundException;
@@ -22,6 +23,7 @@ import com.revature.repositories.UserRepository;
 import com.revature.service.AuthService;
 
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 public class AuthServiceTest {
 	@Mock
 	private UserRepository userRepo;
@@ -51,16 +53,17 @@ public class AuthServiceTest {
 	@Test
 	void registerTest() throws NoSuchAlgorithmException, UserAlreadyExistsException{
 		String hashedPW = authService.hashingAlgo("pass");
-		Users newuser = new Users(1,"Test",hashedPW,Role.CUSTOMER);
+		Users newuser = new Users("Test",hashedPW,Role.CUSTOMER);
 		//newuser.setPassWord(hashedPW);
 		Mockito.when(userRepo.save(newuser)).thenReturn(newuser);
-		assertEquals(authService.register("Test", hashedPW, Role.CUSTOMER),newuser);
+		assertEquals(authService.register("Test", hashedPW, Role.CUSTOMER), newuser);
 		//boolean successfulRegister = 
 		///assertTrue(authService.register("Test", hashedPW, Role.CUSTOMER),"True");
 	}
+	
 	@Test
 	void failedRegisterTest() throws UserAlreadyExistsException, NoSuchAlgorithmException{
-		Users user = new Users(1,"Test", "pass", Role.CUSTOMER);
+		Users user = new Users("Test", "pass", Role.CUSTOMER);
 		Mockito.when(userRepo.findUsersByuserName("Test")).thenReturn(user);
 		assertNotEquals(authService.register("Employee2", "Password", Role.EMPLOYEE), user); 
 
