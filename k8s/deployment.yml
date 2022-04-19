@@ -2,6 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: project2-deployment
+  namespace: team-ccc
+  labels:
+    name: project2-app
 spec:
   replicas: 2
   selector:
@@ -25,5 +28,20 @@ spec:
           - name: DB_PASS
             value: basketball
           # could add an env var for spring profile value: prod
+      - name: promtail-container
+        image: grafana/promtail
+        args:
+        - -config.file=/etc/promtail/promtail.yml
+        volumeMounts:
+        - name: logs
+          mountPath: /logs
+        - name: promtail-config
+          mountPath: /etc/promtail
+      volumes:
+        - name: logs
+          emptyDir: {}
+        - name: promtail-config
+          configMap:
+            name: promtail-config
 
           

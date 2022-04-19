@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: app-svc-monitor
+  namespace: team-ccc
+  labels:
+    app: project2-app
+    release: prom
+spec: 
+  endpoints:
+  - path : /actuator/prometheus
+    interval: 15s
+    port: http 
+  namespaceSelector:
+    matchNames:
+      - team-ccc
+  selector:
+    matchLabels: 
+      app: project2-app
