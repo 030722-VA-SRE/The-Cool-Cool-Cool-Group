@@ -15,6 +15,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 import com.revature.exceptions.NinjaNotFoundException;
 import com.revature.modals.Ninja;
@@ -22,6 +24,7 @@ import com.revature.repositories.NinjaRepository;
 import com.revature.service.NinjaService;
 
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 public class NinjaServiceTest {
 	
 	@Mock
@@ -127,7 +130,7 @@ public class NinjaServiceTest {
 		Ninja ninja = new Ninja(3,"Kakashi Hatake", "Hidden-Rain-Village","Lighning Blade","6th Hokage",67);
 		ninjaList.add(ninja);
 		Mockito.when(ninjaRepo.findByVillage("Hidden-Leaf-Village")).thenReturn(ninjaList);
-		assertThrows(NinjaNotFoundException.class,() -> ninjaService.getNinjasByVillage("Hidden-Leaf-Village") );
+		assertThrows(NinjaNotFoundException.class,() -> ninjaService.getNinjasByVillage(null) );
 	}
 	@Test
 	void deleteNinja() throws NinjaNotFoundException {

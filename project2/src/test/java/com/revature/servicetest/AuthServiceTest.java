@@ -3,6 +3,7 @@ package com.revature.servicetest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -56,7 +57,8 @@ public class AuthServiceTest {
 		Users newuser = new Users("Test",hashedPW,Role.CUSTOMER);
 		//newuser.setPassWord(hashedPW);
 		Mockito.when(userRepo.save(newuser)).thenReturn(newuser);
-		assertEquals(authService.register("Test", hashedPW, Role.CUSTOMER), newuser);
+		//assertEquals(authService.register("Test", hashedPW, Role.CUSTOMER), newuser);
+		assertTrue(authService.register("Test", hashedPW, Role.CUSTOMER));
 		//boolean successfulRegister = 
 		///assertTrue(authService.register("Test", hashedPW, Role.CUSTOMER),"True");
 	}
