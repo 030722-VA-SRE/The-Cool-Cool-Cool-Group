@@ -4,7 +4,6 @@ pipeline{
         registry= 'axpazmino/project2'
         dockerHubCreds= 'dockerhub'
         dockerImage=''
-        dockerfilepath= './project2/Dockerfile'
     }
     stages{
         stage('Code Quality Analysis'){
@@ -22,7 +21,7 @@ pipeline{
         stage("Docker build"){
             steps{
                 script{
-                    dockerImage = docker.build ("$registry", "-f $dockerfilepath")
+                    dockerImage = docker.build "$registry"
                 }
             }
         }
