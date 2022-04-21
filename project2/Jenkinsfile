@@ -22,7 +22,7 @@ pipeline{
         stage("Docker build"){
             steps{
                 script{
-                    dockerImage = docker.build ("$registry -f project2/Dockerfile", "-f $dockerfilepath")
+                    dockerImage = docker.build ("$registry", "-f $dockerfilepath")
                 }
             }
         }
