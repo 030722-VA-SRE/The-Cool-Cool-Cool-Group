@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: project2-service
+  name: ninjas-service
   namespace: team-ccc
   labels:
-    name: project2-app
+    app: ninjas
 spec:
   selector:
-    app: project2-app
+    app: ninjas
   ports:
   - port: 8080
     targetPort: 8080

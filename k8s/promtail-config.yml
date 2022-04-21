@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: promtail-config
+  name: ninjas-promtail-config
   namespace: team-ccc
 data:
   promtail.yml: |-

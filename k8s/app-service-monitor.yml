@@ -1,10 +1,10 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: app-svc-monitor
+  name: ninjas-svc-monitor
   namespace: team-ccc
   labels:
-    app: project2-app
+    app: ninjas
     release: prom
 spec: 
   endpoints:
@@ -16,4 +16,4 @@ spec:
       - team-ccc
   selector:
     matchLabels: 
-      app: project2-app
+      app: ninjas
