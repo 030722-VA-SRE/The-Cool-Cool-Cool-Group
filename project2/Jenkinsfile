@@ -21,7 +21,7 @@ pipeline{
         stage("Docker build"){
             steps{
                 script{
-                    dockerImage = docker.build "-f project2/Dockerfile $registry"
+                    dockerImage = docker.build "$registry -f project2/Dockerfile"
                 }
             }
         }
