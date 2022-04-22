@@ -35,8 +35,8 @@ public class NinjaService {
 	private void initCounters() {
 		
 		//List<Ninja> ninjaVillages = ninjaRepo.findByVillage(null);
-		Ninja n = new Ninja();
-		leafVillageCounter = Counter.builder("ninjas.saved").tag("village", n.getVillage()).description("Number of ninjas").register(meterRegistry);
+		//Ninja n = new Ninja();
+		leafVillageCounter = Counter.builder("ninjas.saved").tag("village", "Hidden-Leaf-Village").description("Number of ninjas").register(meterRegistry);
 		sandVillageCounter = Counter.builder("ninjas.saved").tag("village", "Hidden-Sand-Village").description("Number of ninjas").register(meterRegistry);
 		mistVillageCounter = Counter.builder("ninjas.saved").tag("village", "Hidden-Sand-Village").description("Number of ninjas").register(meterRegistry);
 
@@ -57,13 +57,14 @@ public class NinjaService {
 	// Adds/Creates new Ninja in Database
 	@Transactional
 	public Ninja addNinja(Ninja newNinja) {
+		ninjaRepo.save(newNinja);
 		if("Hidden-Leaf-Village".equals(newNinja.getVillage())) {
-			leafVillageCounter.increment();
+			leafVillageCounter.increment(1.0);
 		} else if("Hidden-Sand-Village".equals(newNinja.getVillage())) {
-			sandVillageCounter.increment();
+			sandVillageCounter.increment(1.0);
 		} 
 		
-		return ninjaRepo.save(newNinja);
+		return newNinja; 
 	}
 	// Get Ninja based on ID
 	public Ninja getNinjaByID(int ID) throws NinjaNotFoundException {
