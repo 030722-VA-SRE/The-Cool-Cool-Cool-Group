@@ -100,7 +100,7 @@ public class AuthService {
 		String [] tokenizedToken = token.split(":");
 		Users principal = userRepo.findById(Integer.valueOf(tokenizedToken[0])).orElseThrow(UserNotFoundException::new);
 		
-		if(principal == null || !principal.getRole().toString().equals(tokenizedToken[1]) || !principal.getRole().toString().equals("EMPLOYEE")) {
+		if(!principal.getRole().toString().equals(tokenizedToken[1]) || !principal.getRole().toString().equals("EMPLOYEE")) {
 			LOG.error("Unauthorized member: " + principal.getUserID() + "is not an employee");
 			throw new UserNotFoundException();
 			
