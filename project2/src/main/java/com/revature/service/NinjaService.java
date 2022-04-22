@@ -28,19 +28,19 @@ public class NinjaService {
 	private UserRepository userRepo;
 	private Logger log = LoggerFactory.getLogger(NinjaService.class);
 	private MeterRegistry meterRegistry;
-	Counter leafVillageCounter;
-	Counter sandVillageCounter;
-	Counter mistVillageCounter;
-
-	private void initCounters() {
-		
-		//List<Ninja> ninjaVillages = ninjaRepo.findByVillage(null);
-		Ninja n = new Ninja();
-		leafVillageCounter = Counter.builder("ninjas.saved").tag("village", n.getVillage()).description("Number of ninjas").register(meterRegistry);
-		sandVillageCounter = Counter.builder("ninjas.saved").tag("village", "Hidden-Sand-Village").description("Number of ninjas").register(meterRegistry);
-		mistVillageCounter = Counter.builder("ninjas.saved").tag("village", "Hidden-Sand-Village").description("Number of ninjas").register(meterRegistry);
-
-	}
+//	Counter leafVillageCounter;
+//	Counter sandVillageCounter;
+//	Counter mistVillageCounter;
+//
+//	private void initCounters() {
+//		
+//		//List<Ninja> ninjaVillages = ninjaRepo.findByVillage(null);
+//		Ninja n = new Ninja();
+//		leafVillageCounter = Counter.builder("ninjas.saved").tag("village", n.getVillage()).description("Number of ninjas").register(meterRegistry);
+//		sandVillageCounter = Counter.builder("ninjas.saved").tag("village", "Hidden-Sand-Village").description("Number of ninjas").register(meterRegistry);
+//		mistVillageCounter = Counter.builder("ninjas.saved").tag("village", "Hidden-Sand-Village").description("Number of ninjas").register(meterRegistry);
+//
+//	}
 	@Autowired
 	public NinjaService(NinjaRepository ninjaRepo, MeterRegistry meterRegistry){
 		super();
@@ -57,11 +57,11 @@ public class NinjaService {
 	// Adds/Creates new Ninja in Database
 	@Transactional
 	public Ninja addNinja(Ninja newNinja) {
-		if("Hidden-Leaf-Village".equals(newNinja.getVillage())) {
-			leafVillageCounter.increment();
-		} else if("Hidden-Sand-Village".equals(newNinja.getVillage())) {
-			sandVillageCounter.increment();
-		} 
+//		if("Hidden-Leaf-Village".equals(newNinja.getVillage())) {
+//			leafVillageCounter.increment();
+//		} else if("Hidden-Sand-Village".equals(newNinja.getVillage())) {
+//			sandVillageCounter.increment();
+//		} 
 		
 		return ninjaRepo.save(newNinja);
 	}
