@@ -22,7 +22,7 @@ spec:
         app: ninjas
     spec:
       containers:
-      - name: project2-container
+      - name: ninjas-container
         image: axpazmino/project2:v1
         ports:
         - containerPort: 8080

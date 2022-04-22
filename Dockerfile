@@ -1,3 +1,3 @@
 FROM java:8 as runner
-COPY target/project1.jar project1.jar
-ENTRYPOINT ["java", "-jar", "/project1.jar"]
+COPY project2/target/ninjas.jar ninjas.jar
+ENTRYPOINT ["java", "-jar", "/ninjas.jar"]
