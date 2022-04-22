@@ -117,7 +117,7 @@ public class NinjaController {
 				nS.deleteNinjaByID(id);
 				return new ResponseEntity<>("Ninja was deleted successfully",HttpStatus.ACCEPTED);
 			}
-		} catch (UserNotFoundException | NinjaNotFoundException e) {
+		} catch (UserNotFoundException e) {
 			
 			e.printStackTrace();
 		}
