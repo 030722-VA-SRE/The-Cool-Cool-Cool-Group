@@ -101,9 +101,9 @@ public class NinjaService {
 		
 	}
 	@Transactional
-	public boolean deleteNinjaByID(int ID) throws NinjaNotFoundException {
+	public boolean deleteNinjaByID(int ID){
 		//try {
-		ninjaRepo.findById(ID).orElseThrow(() -> new NinjaNotFoundException("Ninja by that: " + ID + "was not found"));
+//		ninjaRepo.findById(ID).orElseThrow(() -> new NinjaNotFoundException("Ninja by that: " + ID + "was not found"));
 		//} catch(NinjaNotFoundException ninja) {
 			//log.error("Ninja not found with that ID: " + ID);
 		//}
