@@ -38,15 +38,12 @@ public class UserService {
 	}
 	//Create customer account
 	@Transactional
-	public Users addUser(Users customer) throws NoSuchAlgorithmException,UserAlreadyExistsException {
+	public Users addUser(Users customer) throws NoSuchAlgorithmException, UserAlreadyExistsException {
 		String passwordEntered = null;
 		String hashedPassword;
 
 		if(customer.equals(userRepo.findUsersByuserName(customer.getUserName()))) {
 			log.warn(customer.getUserName() + "already exists!");
-		}
-		if(customer.equals(null)) {
-			log.error("User can not be added: Must enter proper input");
 		}
 		passwordEntered = customer.getPassWord();
 		hashedPassword = authService.hashingAlgo(passwordEntered);
