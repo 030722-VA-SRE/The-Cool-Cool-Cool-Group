@@ -78,7 +78,7 @@
 	</dependencies>
 
 	<build>
-	<finalName>project1</finalName>
+	<finalName>ninjas</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
