@@ -11,5 +11,4 @@ public class NinjasApplication {
 		
 		//System.out.println("Hello World");
 	}
-
 }
