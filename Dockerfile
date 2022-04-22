@@ -1,3 +1,8 @@
+FROM maven:3.6.3-openjdk-8 as builder
+COPY ./app/src/ src/
+COPY ./app/pom.xml pom.xml
+RUN mvn clean package -Dmaven.test.skip -Pprod
+
 FROM java:8 as runner
-COPY target/project1.jar project1.jar
-ENTRYPOINT ["java", "-jar", "/project1.jar"]
+COPY --from=builder target/ninjas.jar ninjas.jar
+ENTRYPOINT ["java", "-jar", "/ninjas.jar"]
