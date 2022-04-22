@@ -40,11 +40,9 @@ public class UserController {
 	@PostMapping
 	public ResponseEntity<String> createUser(@RequestBody Users newUser) throws NoSuchAlgorithmException, UserAlreadyExistsException{
 		Users u = userService.addUser(newUser);
-		if(u == null) {
-			log.error("User can not be added: Must enter proper input");
-		}
-		return new ResponseEntity<>("User: " + u.getUserName() + " was created and has a role of: " + u.getRole(),HttpStatus.ACCEPTED);
 		
+		return new ResponseEntity<>("User: " + u.getUserName() + 
+				" was created and has a role of: " + u.getRole(),HttpStatus.ACCEPTED);
 	}
 	@GetMapping
 	public ResponseEntity<List<Users>> getUsers(@RequestHeader(value="Authorization", required=true) String token){

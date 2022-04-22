@@ -45,6 +45,9 @@ public class UserService {
 		if(customer.equals(userRepo.findUsersByuserName(customer.getUserName()))) {
 			log.warn(customer.getUserName() + "already exists!");
 		}
+		if(customer.equals(null)) {
+			log.error("User can not be added: Must enter proper input");
+		}
 		passwordEntered = customer.getPassWord();
 		hashedPassword = authService.hashingAlgo(passwordEntered);
 		customer.setPassWord(hashedPassword);
