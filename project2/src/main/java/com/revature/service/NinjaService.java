@@ -30,6 +30,7 @@ public class NinjaService {
 	private MeterRegistry meterRegistry;
 	Counter leafVillageCounter;
 	Counter sandVillageCounter;
+	Counter mistVillageCounter;
 
 	private void initCounters() {
 		
@@ -37,6 +38,8 @@ public class NinjaService {
 		Ninja n = new Ninja();
 		leafVillageCounter = Counter.builder("ninjas.saved").tag("village", n.getVillage()).description("Number of ninjas").register(meterRegistry);
 		sandVillageCounter = Counter.builder("ninjas.saved").tag("village", "Hidden-Sand-Village").description("Number of ninjas").register(meterRegistry);
+		mistVillageCounter = Counter.builder("ninjas.saved").tag("village", "Hidden-Sand-Village").description("Number of ninjas").register(meterRegistry);
+
 	}
 	@Autowired
 	public NinjaService(NinjaRepository ninjaRepo, MeterRegistry meterRegistry){
@@ -58,7 +61,7 @@ public class NinjaService {
 			leafVillageCounter.increment();
 		} else if("Hidden-Sand-Village".equals(newNinja.getVillage())) {
 			sandVillageCounter.increment();
-		}
+		} 
 		
 		return ninjaRepo.save(newNinja);
 	}

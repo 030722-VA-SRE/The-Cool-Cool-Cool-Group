@@ -52,13 +52,13 @@ public class AuthServiceTest {
 		assertThrows(UserNotFoundException.class, () -> authService.login("Employee1", "password",Role.EMPLOYEE));
 	}
 	@Test
-	void registerTest() throws NoSuchAlgorithmException, UserAlreadyExistsException{
+	void registerTest() throws NoSuchAlgorithmException, UserNotFoundException{
 		String hashedPW = authService.hashingAlgo("pass");
-		Users newuser = new Users("Test",hashedPW,Role.CUSTOMER);
+		Users newuser = new Users("T",hashedPW,Role.CUSTOMER);
 		//newuser.setPassWord(hashedPW);
 		Mockito.when(userRepo.save(newuser)).thenReturn(newuser);
 		//assertEquals(authService.register("Test", hashedPW, Role.CUSTOMER), newuser);
-		assertTrue(authService.register("Test", hashedPW, Role.CUSTOMER));
+		assertTrue(authService.register("T", hashedPW, Role.CUSTOMER));
 		//boolean successfulRegister = 
 		///assertTrue(authService.register("Test", hashedPW, Role.CUSTOMER),"True");
 	}
@@ -67,10 +67,10 @@ public class AuthServiceTest {
 	void failedRegisterTest() throws UserAlreadyExistsException, NoSuchAlgorithmException{
 		Users user = new Users("Test", "pass", Role.CUSTOMER);
 		Mockito.when(userRepo.findUsersByuserName("Test")).thenReturn(user);
-		assertNotEquals(authService.register("Employee2", "Password", Role.EMPLOYEE), user); 
+		//assertNotEquals(authService.register("Employee2", "Password", Role.EMPLOYEE), user); 
 
 		
-		//assertThrows(UserAlreadyExistsException.class, () -> authService.register("T", "p", Role.CUSTOMER));
+		assertThrows(UserNotFoundException.class, () -> authService.register(null, "pass", Role.CUSTOMER));
 	}
 	
 	
