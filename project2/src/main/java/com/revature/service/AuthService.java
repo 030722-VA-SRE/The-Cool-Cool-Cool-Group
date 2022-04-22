@@ -54,7 +54,7 @@ public class AuthService {
 		hashedPassword = hashingAlgo(password);
 		LOG.info("Password was hashed using secure algorithm");
 		if(newUser == null || !newUser.getPassWord().equals(hashedPassword) && !newUser.getRole().equals(role)) {
-			LOG.error("Username did not match: " + username);
+			LOG.error("Username did not match: %s",username);
 			throw new UserNotFoundException();
 			// LOG: Login failed
 			
@@ -64,16 +64,16 @@ public class AuthService {
 		LOG.info("Login for user: " + newUser.getUserName() + " was successful");
 		return token;
 	}
-	public boolean register(String username, String password, Role role) throws NoSuchAlgorithmException, UserAlreadyExistsException {
+	public boolean register(String username, String password, Role role) throws NoSuchAlgorithmException, UserNotFoundException {
 		String hashPassword;
 		hashPassword= hashingAlgo(password);
 		Users newUser = new Users(username,hashPassword,role);
-		if(newUser == null || username != newUser.getUserName()) {
-			LOG.warn("User with username: "+ username + "already exists!");
-			throw new UserAlreadyExistsException();
+		if(username == null) {
+			LOG.warn("User with username: must not be null");
+			throw new UserNotFoundException();
 		}
 		userRepo.save(newUser);
-		LOG.info("User with username: "+ username + " was created!");
+		LOG.info("User with username: %s was created!",username);
 		return true;
 	}
 	

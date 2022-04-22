@@ -51,7 +51,7 @@ public class AuthController {
 	
 	@PostMapping("/register")
 	public ResponseEntity<String> register(@RequestParam(name="username") String username, @RequestParam(name="password") String password
-											, @RequestParam(name="role") Role role) throws NoSuchAlgorithmException, UserAlreadyExistsException{
+											, @RequestParam(name="role") Role role) throws NoSuchAlgorithmException, UserNotFoundException{
 		boolean registered = authService.register(username, password, role);
 					
 		//if()
