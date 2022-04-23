@@ -32,22 +32,24 @@ public class NinjaService {
 	Counter sandVillageCounter;
 	Counter mistVillageCounter;
 
-	private void initCounters() {
-		
-		//List<Ninja> ninjaVillages = ninjaRepo.findByVillage(null);
-		Ninja n = new Ninja();
-		leafVillageCounter = Counter.builder("ninjas.saved").tag("village", n.getVillage()).description("Number of ninjas").register(meterRegistry);
-		sandVillageCounter = Counter.builder("ninjas.saved").tag("village", "Hidden-Sand-Village").description("Number of ninjas").register(meterRegistry);
-		mistVillageCounter = Counter.builder("ninjas.saved").tag("village", "Hidden-Sand-Village").description("Number of ninjas").register(meterRegistry);
-
-	}
+	
 	@Autowired
 	public NinjaService(NinjaRepository ninjaRepo, MeterRegistry meterRegistry){
 		super();
 		this.ninjaRepo = ninjaRepo;
 		this.meterRegistry = meterRegistry;
+		//leafVillageCounter = meterRegistry.counter("ninjas.saved", "village")
+		//initVillageCounters();
 	}
 	
+	private void initVillageCounters() {
+		
+		
+		leafVillageCounter = Counter.builder("ninjas.saved.byVillage").tag("village", "Hidden-Leaf-Village").description("Number of ninjas created by village").register(meterRegistry);
+		sandVillageCounter = Counter.builder("ninjas.saved.byVillage").tag("village", "Hidden-Sand-Village").description("Number of ninjas created by village").register(meterRegistry);
+		mistVillageCounter = Counter.builder("ninjas.saved.byVillage").tag("village", "Hidden-Mist-Village").description("Number of ninjas created by village").register(meterRegistry);
+		
+	}
 	// Gets All Ninjas in Database
 	@Timed(value="ninja.time", description="Time spent retrieving ninjas by village")
 	public List<Ninja> getAllNinjas(){
@@ -57,13 +59,17 @@ public class NinjaService {
 	// Adds/Creates new Ninja in Database
 	@Transactional
 	public Ninja addNinja(Ninja newNinja) {
-		if("Hidden-Leaf-Village".equals(newNinja.getVillage())) {
+		String leaf = "Hidden-Leaf-Village";
+		String sand = "Hidden-Sand-Village";
+		ninjaRepo.save(newNinja);
+		
+		if(newNinja.getVillage().equals(leaf)) {
 			leafVillageCounter.increment();
-		} else if("Hidden-Sand-Village".equals(newNinja.getVillage())) {
+		} else if(newNinja.getVillage().equals(sand)) {
 			sandVillageCounter.increment();
 		} 
 		
-		return ninjaRepo.save(newNinja);
+		return newNinja; 
 	}
 	// Get Ninja based on ID
 	public Ninja getNinjaByID(int ID) throws NinjaNotFoundException {
@@ -84,7 +90,7 @@ public class NinjaService {
 	@Timed(value="ninja.time", description="Time spent retrieving ninjas by Jutsu")
 	public List<Ninja> getNinjaByJutsu(@Param("jutsu") String jutsu) {
 		if(jutsu == null) {
-			log.error("Jutus must not be null");
+			log.error("Jutsu must not be null");
 		}
 		return ninjaRepo.findByJutsuLike(jutsu);
 		
