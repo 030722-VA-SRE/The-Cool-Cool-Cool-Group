@@ -32,7 +32,7 @@ public class NinjaService {
 	Counter sandVillageCounter;
 	Counter mistVillageCounter;
 
-	private void initCounters() {
+	public void initCounters() {
 		
 		//List<Ninja> ninjaVillages = ninjaRepo.findByVillage(null);
 		//Ninja n = new Ninja();
@@ -46,7 +46,8 @@ public class NinjaService {
 	public NinjaService(NinjaRepository ninjaRepo, MeterRegistry meterRegistry){
 		super();
 		this.ninjaRepo = ninjaRepo;
-		this.meterRegistry = meterRegistry;
+		//this.meterRegistry = meterRegistry;
+		//leafVillageCounter = meterRegistry.counter("ninjas.saved", "village")
 	}
 	
 	// Gets All Ninjas in Database

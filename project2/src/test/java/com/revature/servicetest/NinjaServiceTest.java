@@ -36,9 +36,10 @@ public class NinjaServiceTest {
 	
 	@InjectMocks
 	NinjaService ninjaService;
-	
+	/*
 	@Mock
 	Counter counter;
+	*/
 	//public void setup() {
 		
 	
@@ -63,11 +64,12 @@ public class NinjaServiceTest {
 	}
 	@Test
 	void addNinja() {
+		//Met
 		Ninja newNinja = new Ninja(1,"Sasuke Uchiha", "Hidden-Leaf-Village","Amaterasu","Uchiha Clan",65);
 		
 		Mockito.when(ninjaRepo.save(newNinja)).thenReturn(newNinja);
 		
-		counter.increment(1.0);
+		//counter.increment(1.0);
 		//assertTrue((counter.count()).isEqualTo(1.0);
 		assertEquals(ninjaService.addNinja(newNinja), newNinja);
 	}
