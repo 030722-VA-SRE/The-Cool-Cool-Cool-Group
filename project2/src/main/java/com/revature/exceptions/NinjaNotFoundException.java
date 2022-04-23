@@ -5,7 +5,11 @@ import org.slf4j.LoggerFactory;
 
 import com.revature.service.NinjaService;
 
-public class NinjaNotFoundException extends Exception{
+public class NinjaNotFoundException extends RuntimeException{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Logger log = LoggerFactory.getLogger(NinjaService.class);
 	
 	public NinjaNotFoundException(){

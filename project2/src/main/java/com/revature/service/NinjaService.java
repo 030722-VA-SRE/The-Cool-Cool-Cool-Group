@@ -12,12 +12,9 @@ import org.springframework.stereotype.Service;
 
 import com.revature.exceptions.NinjaNotFoundException;
 import com.revature.modals.Ninja;
-import com.revature.modals.Users;
 import com.revature.repositories.NinjaRepository;
-import com.revature.repositories.UserRepository;
 
 import io.micrometer.core.annotation.Timed;
-import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 
 @Service
@@ -25,6 +22,7 @@ public class NinjaService {
 
 	
 	private NinjaRepository ninjaRepo;
+<<<<<<< HEAD
 	private UserRepository userRepo;
 	private Logger log = LoggerFactory.getLogger(NinjaService.class);
 	private MeterRegistry meterRegistry;
@@ -33,13 +31,35 @@ public class NinjaService {
 	Counter mistVillageCounter;
 
 	
+=======
+//	private UserRepository userRepo;
+	private static final Logger log = LoggerFactory.getLogger(NinjaService.class);
+//	private MeterRegistry meterRegistry;
+//	Counter leafVillageCounter;
+//	Counter sandVillageCounter;
+//	Counter mistVillageCounter;
+//
+//	private void initCounters() {
+//		
+//		//List<Ninja> ninjaVillages = ninjaRepo.findByVillage(null);
+//		Ninja n = new Ninja();
+//		leafVillageCounter = Counter.builder("ninjas.saved").tag("village", n.getVillage()).description("Number of ninjas").register(meterRegistry);
+//		sandVillageCounter = Counter.builder("ninjas.saved").tag("village", "Hidden-Sand-Village").description("Number of ninjas").register(meterRegistry);
+//		mistVillageCounter = Counter.builder("ninjas.saved").tag("village", "Hidden-Sand-Village").description("Number of ninjas").register(meterRegistry);
+//
+//	}
+>>>>>>> main
 	@Autowired
 	public NinjaService(NinjaRepository ninjaRepo, MeterRegistry meterRegistry){
 		super();
 		this.ninjaRepo = ninjaRepo;
+<<<<<<< HEAD
 		this.meterRegistry = meterRegistry;
 		//leafVillageCounter = meterRegistry.counter("ninjas.saved", "village")
 		//initVillageCounters();
+=======
+//		this.meterRegistry = meterRegistry;
+>>>>>>> main
 	}
 	
 	private void initVillageCounters() {
@@ -59,6 +79,7 @@ public class NinjaService {
 	// Adds/Creates new Ninja in Database
 	@Transactional
 	public Ninja addNinja(Ninja newNinja) {
+<<<<<<< HEAD
 		String leaf = "Hidden-Leaf-Village";
 		String sand = "Hidden-Sand-Village";
 		ninjaRepo.save(newNinja);
@@ -68,6 +89,13 @@ public class NinjaService {
 		} else if(newNinja.getVillage().equals(sand)) {
 			sandVillageCounter.increment();
 		} 
+=======
+//		if("Hidden-Leaf-Village".equals(newNinja.getVillage())) {
+//			leafVillageCounter.increment();
+//		} else if("Hidden-Sand-Village".equals(newNinja.getVillage())) {
+//			sandVillageCounter.increment();
+//		} 
+>>>>>>> main
 		
 		return newNinja; 
 	}
@@ -107,9 +135,9 @@ public class NinjaService {
 		
 	}
 	@Transactional
-	public boolean deleteNinjaByID(int ID) throws NinjaNotFoundException {
+	public boolean deleteNinjaByID(int ID){
 		//try {
-		ninjaRepo.findById(ID).orElseThrow(() -> new NinjaNotFoundException("Ninja by that: " + ID + "was not found"));
+//		ninjaRepo.findById(ID).orElseThrow(() -> new NinjaNotFoundException("Ninja by that: " + ID + "was not found"));
 		//} catch(NinjaNotFoundException ninja) {
 			//log.error("Ninja not found with that ID: " + ID);
 		//}

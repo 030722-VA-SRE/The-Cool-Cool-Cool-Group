@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.dto.UserDTO;
-import com.revature.exceptions.UserAlreadyExistsException;
 import com.revature.exceptions.UserNotFoundException;
 import com.revature.modals.Role;
 import com.revature.service.AuthService;
@@ -40,9 +38,7 @@ public class AuthController {
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 		}
 		HttpHeaders header = new HttpHeaders();
-		// Add token or session cookie
-		
-		//String token = authService.login(user);
+
 		
 		header.set("Authorization", token);
 		LOG.info("Login successful by: " + token);
@@ -54,9 +50,7 @@ public class AuthController {
 											, @RequestParam(name="role") Role role) throws NoSuchAlgorithmException, UserNotFoundException{
 		boolean registered = authService.register(username, password, role);
 					
-		//if()
 		HttpHeaders header = new HttpHeaders();
-		//header.set("Authorization", token);
 		LOG.info(username+": " + " registered successfully");
 		return new ResponseEntity<>("Register successful",HttpStatus.OK);
 

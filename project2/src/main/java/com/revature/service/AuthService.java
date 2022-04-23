@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.revature.exceptions.UserAlreadyExistsException;
 import com.revature.exceptions.UserNotFoundException;
 import com.revature.modals.Role;
 import com.revature.modals.Users;
@@ -54,7 +53,7 @@ public class AuthService {
 		hashedPassword = hashingAlgo(password);
 		LOG.info("Password was hashed using secure algorithm");
 		if(newUser == null || !newUser.getPassWord().equals(hashedPassword) && !newUser.getRole().equals(role)) {
-			LOG.error("Username did not match: %s",username);
+			LOG.error("Username did not match: "+ username);
 			throw new UserNotFoundException();
 			// LOG: Login failed
 			
@@ -73,7 +72,7 @@ public class AuthService {
 			throw new UserNotFoundException();
 		}
 		userRepo.save(newUser);
-		LOG.info("User with username: %s was created!",username);
+		LOG.info("User with username: " +username+" was created!");
 		return true;
 	}
 	
@@ -100,7 +99,7 @@ public class AuthService {
 		String [] tokenizedToken = token.split(":");
 		Users principal = userRepo.findById(Integer.valueOf(tokenizedToken[0])).orElseThrow(UserNotFoundException::new);
 		
-		if(principal == null || !principal.getRole().toString().equals(tokenizedToken[1]) || !principal.getRole().toString().equals("EMPLOYEE")) {
+		if(!principal.getRole().toString().equals(tokenizedToken[1]) || !principal.getRole().toString().equals("EMPLOYEE")) {
 			LOG.error("Unauthorized member: " + principal.getUserID() + "is not an employee");
 			throw new UserNotFoundException();
 			
