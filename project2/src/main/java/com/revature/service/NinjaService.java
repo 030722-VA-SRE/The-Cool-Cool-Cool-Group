@@ -22,7 +22,6 @@ public class NinjaService {
 
 	
 	private NinjaRepository ninjaRepo;
-<<<<<<< HEAD
 	private UserRepository userRepo;
 	private Logger log = LoggerFactory.getLogger(NinjaService.class);
 	private MeterRegistry meterRegistry;
@@ -48,18 +47,14 @@ public class NinjaService {
 //		mistVillageCounter = Counter.builder("ninjas.saved").tag("village", "Hidden-Sand-Village").description("Number of ninjas").register(meterRegistry);
 //
 //	}
->>>>>>> main
 	@Autowired
 	public NinjaService(NinjaRepository ninjaRepo, MeterRegistry meterRegistry){
 		super();
 		this.ninjaRepo = ninjaRepo;
-<<<<<<< HEAD
 		this.meterRegistry = meterRegistry;
 		//leafVillageCounter = meterRegistry.counter("ninjas.saved", "village")
 		//initVillageCounters();
-=======
 //		this.meterRegistry = meterRegistry;
->>>>>>> main
 	}
 	
 	private void initVillageCounters() {
@@ -79,7 +74,6 @@ public class NinjaService {
 	// Adds/Creates new Ninja in Database
 	@Transactional
 	public Ninja addNinja(Ninja newNinja) {
-<<<<<<< HEAD
 		String leaf = "Hidden-Leaf-Village";
 		String sand = "Hidden-Sand-Village";
 		ninjaRepo.save(newNinja);
@@ -89,13 +83,11 @@ public class NinjaService {
 		} else if(newNinja.getVillage().equals(sand)) {
 			sandVillageCounter.increment();
 		} 
-=======
 //		if("Hidden-Leaf-Village".equals(newNinja.getVillage())) {
 //			leafVillageCounter.increment();
 //		} else if("Hidden-Sand-Village".equals(newNinja.getVillage())) {
 //			sandVillageCounter.increment();
 //		} 
->>>>>>> main
 		
 		return newNinja; 
 	}
