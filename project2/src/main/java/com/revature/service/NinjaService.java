@@ -23,7 +23,7 @@ public class NinjaService {
 	
 	private NinjaRepository ninjaRepo;
 //	private UserRepository userRepo;
-	private Logger log = LoggerFactory.getLogger(NinjaService.class);
+	private static final Logger log = LoggerFactory.getLogger(NinjaService.class);
 //	private MeterRegistry meterRegistry;
 //	Counter leafVillageCounter;
 //	Counter sandVillageCounter;

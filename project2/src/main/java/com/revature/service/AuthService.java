@@ -53,7 +53,7 @@ public class AuthService {
 		hashedPassword = hashingAlgo(password);
 		LOG.info("Password was hashed using secure algorithm");
 		if(newUser == null || !newUser.getPassWord().equals(hashedPassword) && !newUser.getRole().equals(role)) {
-			LOG.error("Username did not match: %s",username);
+			LOG.error("Username did not match: "+ username);
 			throw new UserNotFoundException();
 			// LOG: Login failed
 			
@@ -72,7 +72,7 @@ public class AuthService {
 			throw new UserNotFoundException();
 		}
 		userRepo.save(newUser);
-		LOG.info("User with username: %s was created!",username);
+		LOG.info("User with username: " +username+" was created!");
 		return true;
 	}
 	

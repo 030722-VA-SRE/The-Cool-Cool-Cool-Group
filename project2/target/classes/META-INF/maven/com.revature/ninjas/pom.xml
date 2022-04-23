@@ -105,6 +105,7 @@
 						<exclude>**/repositories/**</exclude>
 						<exclude>**/exceptions/**</exclude>
 						<exclude>**/config/**</exclude>
+						<exclude>**/dto/**</exclude>
 					</excludes>
 				</configuration>
 				<executions>
