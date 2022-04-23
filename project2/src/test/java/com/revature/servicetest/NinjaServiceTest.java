@@ -23,6 +23,10 @@ import com.revature.modals.Ninja;
 import com.revature.repositories.NinjaRepository;
 import com.revature.service.NinjaService;
 
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
+
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
 public class NinjaServiceTest {
@@ -32,10 +36,17 @@ public class NinjaServiceTest {
 	
 	static List<Ninja> ninjaList;
 	
+//	private final MeterRegistry registry = new SimpleMeterRegistry();
 	@InjectMocks
 	NinjaService ninjaService;
 	
-	//public void setup() {
+	/*
+	@Mock
+	Counter counter;
+	*/
+	public void setup() {
+		
+	}
 		
 	
 	@Test
@@ -59,9 +70,14 @@ public class NinjaServiceTest {
 	}
 	@Test
 	void addNinja() {
+		MeterRegistry meterRegistry = new SimpleMeterRegistry();
+		Counter counter = meterRegistry.counter("ninjas.saved","village","Hidden-Leaf-Village");
 		Ninja newNinja = new Ninja(1,"Sasuke Uchiha", "Hidden-Leaf-Village","Amaterasu","Uchiha Clan",65);
 		
 		Mockito.when(ninjaRepo.save(newNinja)).thenReturn(newNinja);
+		
+		counter.increment();
+		assertTrue(counter.count() == 1);
 		assertEquals(ninjaService.addNinja(newNinja), newNinja);
 	}
 	@Test
