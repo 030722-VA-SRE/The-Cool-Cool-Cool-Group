@@ -22,18 +22,43 @@ public class NinjaService {
 	
 	private NinjaRepository ninjaRepo;
 
+<<<<<<< HEAD
 
 	private static final Logger log = LoggerFactory.getLogger(NinjaService.class);
 
 
+=======
+	private Logger log = LoggerFactory.getLogger(NinjaService.class);
+
+//	private UserRepository userRepo;
+//	private MeterRegistry meterRegistry;
+//	Counter leafVillageCounter;
+//	Counter sandVillageCounter;
+//	Counter mistVillageCounter;
+//
+//	private void initCounters() {
+//		
+//		//List<Ninja> ninjaVillages = ninjaRepo.findByVillage(null);
+//		Ninja n = new Ninja();
+//		leafVillageCounter = Counter.builder("ninjas.saved").tag("village", n.getVillage()).description("Number of ninjas").register(meterRegistry);
+//		sandVillageCounter = Counter.builder("ninjas.saved").tag("village", "Hidden-Sand-Village").description("Number of ninjas").register(meterRegistry);
+//		mistVillageCounter = Counter.builder("ninjas.saved").tag("village", "Hidden-Sand-Village").description("Number of ninjas").register(meterRegistry);
+//
+//	}
+>>>>>>> e0cf0ae8e5b54ea9c153fbb365cd4fd643813488
 	@Autowired
 	public NinjaService(NinjaRepository ninjaRepo){
 		super();
 		this.ninjaRepo = ninjaRepo;
+<<<<<<< HEAD
 
 	}
 	
 
+=======
+		
+	}
+>>>>>>> e0cf0ae8e5b54ea9c153fbb365cd4fd643813488
 	// Gets All Ninjas in Database
 	@Timed(value="ninja.time", description="Time spent retrieving ninjas by village")
 	public List<Ninja> getAllNinjas(){
@@ -43,7 +68,15 @@ public class NinjaService {
 	// Adds/Creates new Ninja in Database
 	@Transactional
 	public Ninja addNinja(Ninja newNinja) {
+<<<<<<< HEAD
 		return ninjaRepo.save(newNinja); 
+=======
+
+		ninjaRepo.save(newNinja);
+		
+
+		return newNinja; 
+>>>>>>> e0cf0ae8e5b54ea9c153fbb365cd4fd643813488
 	}
 	// Get Ninja based on ID
 	public Ninja getNinjaByID(int ID) throws NinjaNotFoundException {
