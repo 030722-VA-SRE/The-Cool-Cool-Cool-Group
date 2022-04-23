@@ -12,12 +12,9 @@ import org.springframework.stereotype.Service;
 
 import com.revature.exceptions.NinjaNotFoundException;
 import com.revature.modals.Ninja;
-import com.revature.modals.Users;
 import com.revature.repositories.NinjaRepository;
-import com.revature.repositories.UserRepository;
 
 import io.micrometer.core.annotation.Timed;
-import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 
 @Service
@@ -25,9 +22,9 @@ public class NinjaService {
 
 	
 	private NinjaRepository ninjaRepo;
-	private UserRepository userRepo;
+//	private UserRepository userRepo;
 	private Logger log = LoggerFactory.getLogger(NinjaService.class);
-	private MeterRegistry meterRegistry;
+//	private MeterRegistry meterRegistry;
 //	Counter leafVillageCounter;
 //	Counter sandVillageCounter;
 //	Counter mistVillageCounter;
@@ -45,7 +42,7 @@ public class NinjaService {
 	public NinjaService(NinjaRepository ninjaRepo, MeterRegistry meterRegistry){
 		super();
 		this.ninjaRepo = ninjaRepo;
-		this.meterRegistry = meterRegistry;
+//		this.meterRegistry = meterRegistry;
 	}
 	
 	// Gets All Ninjas in Database

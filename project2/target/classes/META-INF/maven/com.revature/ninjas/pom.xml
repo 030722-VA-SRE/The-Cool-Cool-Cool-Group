@@ -105,6 +105,7 @@
 						<exclude>**/modals/**</exclude>
 						<exclude>**/repositories/**</exclude>
 						<exclude>**/exceptions/**</exclude>
+						<exclude>**/config/**</exclude>
 					</excludes>
 				</configuration>
 				<executions>

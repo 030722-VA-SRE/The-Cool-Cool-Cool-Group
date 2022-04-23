@@ -26,7 +26,6 @@ import com.revature.exceptions.UserNotFoundException;
 import com.revature.modals.Ninja;
 import com.revature.service.AuthService;
 import com.revature.service.NinjaService;
-import com.revature.service.UserService;
 
 @RestController
 @RequestMapping("/ninjas")
@@ -67,7 +66,6 @@ public class NinjaController {
 	//Adds Ninja to DB ONLY IF ROLE == EMPLOYEE
 	@PostMapping
 	public ResponseEntity<String> addNinja(@RequestBody Ninja newNinja, @RequestHeader(value="Authorization",required=true) String token) {
-		//Users user = new Users();
 		try {
 			
 			if(aS.verifyEmployee(token)==true) {
@@ -80,7 +78,6 @@ public class NinjaController {
 		} catch (UserNotFoundException e) {			
 			log.warn("Must have proper authorization" + token);
 			log.error("Unable to add Ninja to Database: Must have proper authorization" );
-			//log.error(null, "Error", e.printStackTrace());
 		}
 		
 	
@@ -117,7 +114,7 @@ public class NinjaController {
 				nS.deleteNinjaByID(id);
 				return new ResponseEntity<>("Ninja was deleted successfully",HttpStatus.ACCEPTED);
 			}
-		} catch (UserNotFoundException | NinjaNotFoundException e) {
+		} catch (UserNotFoundException e) {
 			
 			e.printStackTrace();
 		}

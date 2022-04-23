@@ -10,13 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.revature.exceptions.NinjaNotFoundException;
 import com.revature.exceptions.UserAlreadyExistsException;
-import com.revature.modals.CustomerTransaction;
-import com.revature.modals.Ninja;
 import com.revature.modals.Users;
 import com.revature.repositories.NinjaRepository;
-import com.revature.repositories.TransactionRepository;
 import com.revature.repositories.UserRepository;
 
 @Service
