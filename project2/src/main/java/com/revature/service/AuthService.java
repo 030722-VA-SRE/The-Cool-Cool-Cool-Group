@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.revature.dto.UserDTO;
 import com.revature.exceptions.UserNotFoundException;
 import com.revature.modals.Role;
 import com.revature.modals.Users;
@@ -60,6 +61,8 @@ public class AuthService {
 		}
 		// LOG: login successful
 		String token = newUser.getUserID() + ":" + newUser.getRole().toString();
+		//UserDTO userDto = new UserDTO(newUser);
+		//String token = generateToken(userDto);
 		LOG.info("Login for user: " + newUser.getUserName() + " was successful");
 		return token;
 	}
@@ -76,7 +79,7 @@ public class AuthService {
 		return true;
 	}
 	
-	public boolean verifyCustomerToken(String token) throws UserNotFoundException {
+	public void verifyCustomerToken(String token) throws UserNotFoundException {
 		if(token == null) {
 			throw new UserNotFoundException();
 		}
@@ -84,12 +87,12 @@ public class AuthService {
 		String [] tokenizedToken = token.split(":");
 		Users principal = userRepo.findById(Integer.valueOf(tokenizedToken[0])).orElse(null);		
 		
-		if(principal == null || !principal.getRole().toString().equals(tokenizedToken[1]) || !principal.getRole().toString().equals("CUSTOMER")) {
+		if(!principal.getRole().toString().equals(tokenizedToken[1]) || !principal.getRole().toString().equals("CUSTOMER")) {
 			LOG.error("User not a Customer");
 			throw new UserNotFoundException();
 		}
 		LOG.info("Token verified successfully: " + principal.getRole());
-		return true;
+		//return true;
 	}
 	public boolean verifyEmployee(String token) throws UserNotFoundException {
 		if(token == null) {
@@ -106,5 +109,10 @@ public class AuthService {
 		}
 		LOG.info("Token verified successfully");
 		return true;
+	}
+	public String generateToken(UserDTO principal) {
+		Users user = userRepo.getById(principal.getUserID());
+		
+		return user.getUserID()+":"+user.getRole().toString();
 	}
 }
