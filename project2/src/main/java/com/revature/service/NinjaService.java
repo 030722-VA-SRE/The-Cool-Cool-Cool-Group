@@ -36,10 +36,11 @@ public class NinjaService {
 		
 		//List<Ninja> ninjaVillages = ninjaRepo.findByVillage(null);
 		//Ninja n = new Ninja();
+		/*
 		leafVillageCounter = Counter.builder("ninjas.saved").tag("village", "Hidden-Leaf-Village").description("Number of ninjas").register(meterRegistry);
 		sandVillageCounter = Counter.builder("ninjas.saved").tag("village", "Hidden-Sand-Village").description("Number of ninjas").register(meterRegistry);
 		mistVillageCounter = Counter.builder("ninjas.saved").tag("village", "Hidden-Sand-Village").description("Number of ninjas").register(meterRegistry);
-
+		*/
 	}
 	@Autowired
 	public NinjaService(NinjaRepository ninjaRepo, MeterRegistry meterRegistry){
@@ -58,11 +59,12 @@ public class NinjaService {
 	@Transactional
 	public Ninja addNinja(Ninja newNinja) {
 		ninjaRepo.save(newNinja);
+		/*
 		if("Hidden-Leaf-Village".equals(newNinja.getVillage())) {
 			leafVillageCounter.increment(1.0);
 		} else if("Hidden-Sand-Village".equals(newNinja.getVillage())) {
 			sandVillageCounter.increment(1.0);
-		} 
+		} */
 		
 		return newNinja; 
 	}
@@ -85,7 +87,7 @@ public class NinjaService {
 	@Timed(value="ninja.time", description="Time spent retrieving ninjas by Jutsu")
 	public List<Ninja> getNinjaByJutsu(@Param("jutsu") String jutsu) {
 		if(jutsu == null) {
-			log.error("Jutus must not be null");
+			log.error("Jutsu must not be null");
 		}
 		return ninjaRepo.findByJutsuLike(jutsu);
 		
