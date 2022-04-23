@@ -43,25 +43,24 @@ public class NinjaController {
 	}
 	// CUSTOMER view available items: Filter by -> village, jutsu
 	@GetMapping
-	public ResponseEntity<List<Ninja>> getAllNinjas(@RequestParam(name="village", required=false) String village, @RequestParam(required=false) String jutsu,@RequestHeader(value="Authorization",required=true) String token) throws NinjaNotFoundException, UserNotFoundException{
+	public ResponseEntity<List<Ninja>> getAllNinjas(@RequestParam(name="village", required=false) String village, @RequestParam(required=false) String jutsu) throws NinjaNotFoundException, UserNotFoundException{
 		List<Ninja> emptyList = new ArrayList<>();
-		if(aS.verifyCustomerToken(token)) {
-			log.debug("Verifying: " + token + "for proper authorization");
+		
+			//log.debug("Verifying: " + token + "for proper authorization");
 			MDC.put("Request ID: ", UUID.randomUUID().toString());
 			if(village != null && jutsu == null) {
 				//log.
 				return new ResponseEntity<>(nS.getNinjasByVillage(village),HttpStatus.OK);
 			} else if (village == null && jutsu != null) {
 			//return new Entity<>(nS.getNinjaByJutsu(jutsu),HttpStatus.OK);
-				log.info(token+"requested ninjas by jutsu");
+				//log.info(token+"requested ninjas by jutsu");
 				return new ResponseEntity<>(nS.getNinjaByJutsu(jutsu),HttpStatus.OK);
 			} else {
 			return new ResponseEntity<>(nS.getAllNinjas(),HttpStatus.OK);
 			}
 		} 
-		log.error("Must be customer to view available items");
-		return new ResponseEntity<>(emptyList,HttpStatus.FORBIDDEN);
-	}
+	
+	
 	
 	//Adds Ninja to DB ONLY IF ROLE == EMPLOYEE
 	@PostMapping

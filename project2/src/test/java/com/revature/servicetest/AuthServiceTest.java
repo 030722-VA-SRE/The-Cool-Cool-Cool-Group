@@ -16,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
+import com.revature.dto.UserDTO;
 import com.revature.exceptions.UserAlreadyExistsException;
 import com.revature.exceptions.UserNotFoundException;
 import com.revature.modals.Role;
@@ -35,11 +36,16 @@ public class AuthServiceTest {
 	void loginTest() throws NoSuchAlgorithmException, UserNotFoundException {
 		
 		Users user = new Users(1,"Employee1", "Password",Role.EMPLOYEE);
+		//UserDTO userdto = new UserDTO(user);
 		Mockito.when(userRepo.findUsersByuserName("Employee1")).thenReturn(user);
 		String hashedPW = authService.hashingAlgo("Password");
 		user.setPassWord(hashedPW);
+		//String token = authService.generateToken(userdto);
+		//String [] tokenizedToken = token.split(":");
+
 		assertEquals(authService.login("Employee1", hashedPW, Role.EMPLOYEE),"1:"+Role.EMPLOYEE);
-		
+		//assertEquals(authService.login("Employee1", hashedPW, Role.EMPLOYEE),tokenizedToken[0]+ tokenizedToken[1]);
+
 		
 	}
 	
@@ -72,7 +78,38 @@ public class AuthServiceTest {
 		
 		assertThrows(UserNotFoundException.class, () -> authService.register(null, "pass", Role.CUSTOMER));
 	}
+	@Test
+	void verifyCustToken() throws UserNotFoundException{
+		String token = "1:CUSTOMER";
+		
+		Users cust = new Users(1,"cust_name","pass",Role.CUSTOMER);
+		String [] tokenizedToken = token.split(":");
+		Mockito.when(userRepo.findById(1)).thenReturn(cust);
+		
+		assertEquals(Integer.valueOf(tokenizedToken[0]), 1);
+		assertEquals(tokenizedToken[1], "CUSTOMER");
+		
+	}
+	@Test
+	void failCustToken() throws UserNotFoundException {
+		String token = null;
+		assertThrows(UserNotFoundException.class, () -> authService.verifyCustomerToken(token));
+	}
+	@Test
+	void verifyEmpToken() throws UserNotFoundException {
+		String token = "1:EMPLOYEE";
+		Users emp = new Users(1,"emp_name","pass",Role.EMPLOYEE);
+		String [] tokenizedToken = token.split(":");
+		Mockito.when(userRepo.findById(1)).thenReturn(emp);
+		assertEquals(Integer.valueOf(tokenizedToken[0]), 1);
+		assertEquals(tokenizedToken[1], "EMPLOYEE");
+	}
 	
+	@Test
+	void failEmpToken() throws UserNotFoundException {
+		String token = null;
+		assertThrows(UserNotFoundException.class, () -> authService.verifyEmployee(token));
+	}
 	
 	
 	

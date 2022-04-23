@@ -59,15 +59,15 @@ public class UserServiceTest {
 		Mockito.when(userRepo.findAll()).thenReturn(userList);
 		assertEquals(userService.getUsers(),userList);
 	} 
-//	@Test
-//	void addUserTest() throws NoSuchAlgorithmException, UserAlreadyExistsException {
-////		Role employee = Role.EMPLOYEE;
-////		String hashedPW = authServ.hashingAlgo("password");
-////		Users u = new Users(1,"username","password",employee);
-////		u.setPassWord(hashedPW);
-//		Mockito.when(userRepo.save(any(Users.class))).thenReturn(user);
-//		assertEquals(user, userService.addUser(user));
-//	}
+	@Test
+	void addUserTest() throws NoSuchAlgorithmException, UserAlreadyExistsException {
+		Role employee = Role.EMPLOYEE;
+		String hashedPW = authServ.hashingAlgo("password");
+		Users u = new Users(1,"username","password",employee);
+		u.setPassWord(hashedPW);
+		Mockito.when(userRepo.save(u)).thenReturn(u);
+		assertEquals(u,userService.addUser(u));
+	}
 	@Test
 	void failAddingUserTest() throws NoSuchAlgorithmException, UserAlreadyExistsException {
 		Users u = new Users(1,"username","password",Role.EMPLOYEE);
