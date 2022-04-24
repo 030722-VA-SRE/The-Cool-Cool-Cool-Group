@@ -20,8 +20,7 @@ import com.revature.repositories.UserRepository;
 public class UserService {
 	
 	private UserRepository userRepo;
-	//private NinjaRepository ninjaRepo;
-	private AuthService authService;
+
 	
 	private static Logger log = LoggerFactory.getLogger(UserService.class);	//@Enumerated()
 	//Role employee = Role.EMPLOYEE;
@@ -31,12 +30,9 @@ public class UserService {
 			AuthService authService){
 		super();
 		this.userRepo = userRepo;
-		this.authService = authService;
 	}
 	@Transactional
 	public Users addUser(Users customer) throws UserAlreadyExistsException, NoSuchAlgorithmException {
-		String passwordEntered;
-		String hashedPassword;
 
 		
 		if(customer == null) {
@@ -46,8 +42,15 @@ public class UserService {
 		if (userRepo.existsUsersByuserName(customer.getUserName())==true) {
 			throw new UserAlreadyExistsException();
 		}
+<<<<<<< HEAD
 		
 		return userRepo.save(customer);
+=======
+
+
+		return userRepo.save(customer);
+
+>>>>>>> main
 	}
 	//Get all users in User table
 	public List<Users> getUsers(){
