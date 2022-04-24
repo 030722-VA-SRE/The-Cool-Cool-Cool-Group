@@ -41,15 +41,8 @@ public class UserService {
 			//throw new UserAlreadyExistsException();
 			log.warn("Customer with that username already exists");
 		}
-<<<<<<< HEAD
 		
 		return userRepo.save(customer);
-=======
-
-
-		return userRepo.save(customer);
-
->>>>>>> main
 	}
 	//Get all users in User table
 	public List<Users> getUsers(){
