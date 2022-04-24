@@ -1,9 +1,7 @@
 package com.revature.servicetest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 
 import java.security.NoSuchAlgorithmException;
@@ -62,13 +60,9 @@ public class UserServiceTest {
 	@Test
 	void addUserTest() throws NoSuchAlgorithmException, UserAlreadyExistsException {
 		Role employee = Role.EMPLOYEE;
-		//String hashedPW = authServ.hashingAlgo("password");
 		Users u = new Users(1,"bob","password",employee);
-		//u.setPassWord(hashedPW);
 		Mockito.when(userRepo.save(u)).thenReturn(u);
 		System.out.println(u);
-		
-		//System.out.println(hashedPW);
 		System.out.println(u.getPassWord());
 		
 		assertEquals(userService.addUser(u),u);
@@ -78,7 +72,6 @@ public class UserServiceTest {
 		Users u = new Users(1,"username","password",Role.EMPLOYEE);
 		Mockito.when(userRepo.findUsersByuserName("username")).thenReturn(u);
 		assertThrows(NullPointerException.class, () -> userService.addUser(null));
-		//assertNotEquals(userService.addUser(u),u);
 	}
 	
 }
