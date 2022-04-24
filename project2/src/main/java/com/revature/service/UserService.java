@@ -36,7 +36,7 @@ public class UserService {
 		
 		if(customer == null) {
 			//log.warn("Customer was not provided");
-			throw new UserNotFoundException();
+			throw new NullPointerException();
 		}
 		if (userRepo.existsUsersByuserName(customer.getUserName())==true) {
 			throw new UserAlreadyExistsException();
