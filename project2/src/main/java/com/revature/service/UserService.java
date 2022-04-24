@@ -23,7 +23,6 @@ public class UserService {
 
 	
 	private static Logger log = LoggerFactory.getLogger(UserService.class);	//@Enumerated()
-	//Role employee = Role.EMPLOYEE;
 	
 	@Autowired
 	public UserService(UserRepository userRepo,NinjaRepository ninjaRepo,
@@ -42,15 +41,8 @@ public class UserService {
 		if (userRepo.existsUsersByuserName(customer.getUserName())==true) {
 			throw new UserAlreadyExistsException();
 		}
-<<<<<<< HEAD
-		
-		return userRepo.save(customer);
-=======
-
 
 		return userRepo.save(customer);
-
->>>>>>> main
 	}
 	//Get all users in User table
 	public List<Users> getUsers(){
