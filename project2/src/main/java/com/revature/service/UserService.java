@@ -41,7 +41,7 @@ public class UserService {
 		if (userRepo.existsUsersByuserName(customer.getUserName())==true) {
 			throw new UserAlreadyExistsException();
 		}
-
+    
 		return userRepo.save(customer);
 	}
 	//Get all users in User table
