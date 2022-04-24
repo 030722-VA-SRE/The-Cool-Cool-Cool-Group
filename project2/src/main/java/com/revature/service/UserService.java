@@ -30,7 +30,6 @@ public class UserService {
 		super();
 		this.userRepo = userRepo;
 	}
-	//Create customer account
 	@Transactional
 	public Users addUser(Users customer) throws UserAlreadyExistsException, NoSuchAlgorithmException {
 
@@ -42,10 +41,8 @@ public class UserService {
 			//throw new UserAlreadyExistsException();
 			log.warn("Customer with that username already exists");
 		}
-
-
+		
 		return userRepo.save(customer);
-
 	}
 	//Get all users in User table
 	public List<Users> getUsers(){

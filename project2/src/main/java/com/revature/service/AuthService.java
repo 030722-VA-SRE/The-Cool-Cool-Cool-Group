@@ -56,13 +56,10 @@ public class AuthService {
 		if(newUser == null || !newUser.getPassWord().equals(hashedPassword) && !newUser.getRole().equals(role)) {
 			LOG.error("Username did not match: "+ username);
 			throw new UserNotFoundException();
-			// LOG: Login failed
 			
 		}
-		// LOG: login successful
 		String token = newUser.getUserID() + ":" + newUser.getRole().toString();
-		//UserDTO userDto = new UserDTO(newUser);
-		//String token = generateToken(userDto);
+	
 		LOG.info("Login for user: " + newUser.getUserName() + " was successful");
 		return token;
 	}
@@ -85,14 +82,12 @@ public class AuthService {
 		}
 		
 		String [] tokenizedToken = token.split(":");
-		Users principal = userRepo.findById(Integer.valueOf(tokenizedToken[0])).orElse(null);		
-		
-		if(!principal.getRole().toString().equals(tokenizedToken[1]) || !principal.getRole().toString().equals("CUSTOMER")) {
+		Users principal = userRepo.findById(Integer.valueOf(tokenizedToken[0])).orElseThrow(UserNotFoundException::new);
+		if(principal == null || !principal.getRole().toString().equals(tokenizedToken[1]) || !principal.getRole().toString().equals("CUSTOMER")) {
 			LOG.error("User not a Customer");
 			throw new UserNotFoundException();
 		}
 		LOG.info("Token verified successfully: " + principal.getRole());
-		//return true;
 	}
 	public boolean verifyEmployee(String token) throws UserNotFoundException {
 		if(token == null) {
