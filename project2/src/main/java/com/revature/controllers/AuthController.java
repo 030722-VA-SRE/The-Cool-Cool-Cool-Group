@@ -50,7 +50,7 @@ public class AuthController {
 											, @RequestParam(name="role") Role role) throws NoSuchAlgorithmException, UserNotFoundException{
 		boolean registered = authService.register(username, password, role);
 					
-		HttpHeaders header = new HttpHeaders();
+		//HttpHeaders header = new HttpHeaders();
 		LOG.info(username+": " + " registered successfully");
 		return new ResponseEntity<>("Register successful",HttpStatus.OK);
 

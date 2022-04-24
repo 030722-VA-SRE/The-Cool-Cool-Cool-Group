@@ -31,9 +31,7 @@ public class UserService {
 		this.userRepo = userRepo;
 	}
 	@Transactional
-	public Users addUser(Users customer) throws UserAlreadyExistsException, NoSuchAlgorithmException {
-
-		
+	public Users addUser(Users customer) throws UserAlreadyExistsException, NoSuchAlgorithmException {		
 		if(customer == null) {
 			//log.warn("Customer was not provided");
 			throw new NullPointerException();
