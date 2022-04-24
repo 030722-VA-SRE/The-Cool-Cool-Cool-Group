@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.exceptions.UserAlreadyExistsException;
+import com.revature.exceptions.UserNotFoundException;
 import com.revature.modals.Users;
 import com.revature.repositories.NinjaRepository;
 import com.revature.repositories.UserRepository;
@@ -22,7 +23,6 @@ public class UserService {
 
 	
 	private static Logger log = LoggerFactory.getLogger(UserService.class);	//@Enumerated()
-	//Role employee = Role.EMPLOYEE;
 	
 	@Autowired
 	public UserService(UserRepository userRepo,NinjaRepository ninjaRepo,
@@ -35,13 +35,13 @@ public class UserService {
 
 		
 		if(customer == null) {
-			log.warn("Customer was not provided");
+			//log.warn("Customer was not provided");
+			throw new UserNotFoundException();
 		}
 		if (userRepo.existsUsersByuserName(customer.getUserName())==true) {
-			//throw new UserAlreadyExistsException();
-			log.warn("Customer with that username already exists");
+			throw new UserAlreadyExistsException();
 		}
-		
+    
 		return userRepo.save(customer);
 	}
 	//Get all users in User table
@@ -51,38 +51,6 @@ public class UserService {
 	}
 	
 	
-	
-	//TODO:: Customer can view items purchased
-	
-	/*public List<CustomerTransaction> viewNinjasPurchased(int cust_id) {
-		return transactionRepo.findByuser(cust_id);
-		//return null;
-	}
-	//TODO:: Customer must be able to purchase item
-	@Transactional
-	public boolean purchaseNinja(Ninja ninja,Users customer) throws NinjaNotFoundException {
-		//check if user role == customer 
-		if(customer.equals(userRepo.findUsersByRole(customer.getRole()))) {
-			//check by ID: if ninja is in ninja table 
-			if(ninja.equals(ninjaRepo.findById(ninja.getId()))) {
-				//store ninja in object 
-				Ninja purchasedNinja = ninjaRepo.findById(ninja.getId()).orElseThrow(NinjaNotFoundException::new);
-				//newNinja object is passed into transactionRepo.save()
-				transactionRepo.save(purchasedNinja);
-				//log.tra
-				log.info("Ninja saved to transaction table");
-				//remove ninja from ninja table
-				ninjaRepo.delete(ninja);
-				log.info("Ninja deleted from ninja table");
-
-				log.info("Ninja was properly purchased");
-				return true;
-				
-			}
-		}
-		//update rows from ninja table
-		return false;
-	}*/
 	
 
 	
