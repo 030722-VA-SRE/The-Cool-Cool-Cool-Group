@@ -15,7 +15,6 @@ import com.revature.modals.Ninja;
 import com.revature.repositories.NinjaRepository;
 
 import io.micrometer.core.annotation.Timed;
-import io.micrometer.core.instrument.MeterRegistry;
 
 @Service
 public class NinjaService {
@@ -23,7 +22,11 @@ public class NinjaService {
 	
 	private NinjaRepository ninjaRepo;
 
-	private Logger log = LoggerFactory.getLogger(NinjaService.class);
+	private static final Logger log = LoggerFactory.getLogger(NinjaService.class);
+
+
+
+
 
 //	private UserRepository userRepo;
 //	private MeterRegistry meterRegistry;
@@ -44,8 +47,11 @@ public class NinjaService {
 	public NinjaService(NinjaRepository ninjaRepo){
 		super();
 		this.ninjaRepo = ninjaRepo;
-		
+
 	}
+	
+
+
 	// Gets All Ninjas in Database
 	@Timed(value="ninja.time", description="Time spent retrieving ninjas by village")
 	public List<Ninja> getAllNinjas(){
@@ -56,10 +62,7 @@ public class NinjaService {
 	@Transactional
 	public Ninja addNinja(Ninja newNinja) {
 
-		ninjaRepo.save(newNinja);
-		
-
-		return newNinja; 
+		return ninjaRepo.save(newNinja); 
 	}
 	// Get Ninja based on ID
 	public Ninja getNinjaByID(int ID) throws NinjaNotFoundException {
