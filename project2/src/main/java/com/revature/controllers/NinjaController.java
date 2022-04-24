@@ -1,6 +1,5 @@
 package com.revature.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -44,7 +43,6 @@ public class NinjaController {
 	// CUSTOMER view available items: Filter by -> village, jutsu
 	@GetMapping
 	public ResponseEntity<List<Ninja>> getAllNinjas(@RequestParam(name="village", required=false) String village, @RequestParam(required=false) String jutsu) throws NinjaNotFoundException, UserNotFoundException{
-		List<Ninja> emptyList = new ArrayList<>();
 		
 			//log.debug("Verifying: " + token + "for proper authorization");
 			MDC.put("Request ID: ", UUID.randomUUID().toString());

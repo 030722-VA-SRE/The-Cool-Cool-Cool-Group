@@ -1,7 +1,6 @@
 package com.revature.servicetest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -36,14 +35,9 @@ public class NinjaServiceTest {
 	
 	static List<Ninja> ninjaList;
 	
-//	private final MeterRegistry registry = new SimpleMeterRegistry();
 	@InjectMocks
 	NinjaService ninjaService;
 	
-	/*
-	@Mock
-	Counter counter;
-	*/
 	public void setup() {
 		
 	}
@@ -89,7 +83,6 @@ public class NinjaServiceTest {
 	}
 	@Test
 	void failNinjaByID() {
-		Ninja ninja = new Ninja(1,"Sasuke Uchiha", "Hidden-Leaf-Village","Amaterasu","Uchiha Clan",65);
 		boolean thrown = false;
 		try {
 			ninjaService.getNinjaByID(0);
@@ -113,8 +106,6 @@ public class NinjaServiceTest {
 		boolean thrown = false;
 		
 		try {
-			//Mockito.when(ninjaRepo.findById(1)).thenReturn(Optional.of(ninja));
-			//Mockito.when(ninjaRepo.save(updatedNinja)).thenReturn(updatedNinja);
 			ninjaService.updateNinjaVillage(0,ninja);
 		} catch (NinjaNotFoundException e) {
 			thrown = true;
