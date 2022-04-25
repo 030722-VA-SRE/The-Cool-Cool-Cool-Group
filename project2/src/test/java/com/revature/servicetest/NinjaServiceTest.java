@@ -71,7 +71,7 @@ public class NinjaServiceTest {
 		Mockito.when(ninjaRepo.save(newNinja)).thenReturn(newNinja);
 		
 		counter.increment();
-		assertTrue(counter.count() == 1);
+		assertEquals(1, counter.count());
 		assertEquals(ninjaService.addNinja(newNinja), newNinja);
 	}
 	@Test

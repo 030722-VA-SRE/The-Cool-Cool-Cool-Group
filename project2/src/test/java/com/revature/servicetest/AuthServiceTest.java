@@ -68,8 +68,8 @@ public class AuthServiceTest {
 		String [] tokenizedToken = token.split(":");
 		Mockito.when(userRepo.findById(1)).thenReturn(cust);
 		
-		assertEquals(Integer.valueOf(tokenizedToken[0]), 1);
-		assertEquals(tokenizedToken[1], "CUSTOMER");
+		assertEquals(1, Integer.valueOf(tokenizedToken[0]));
+		assertEquals("CUSTOMER", tokenizedToken[1]);
 		
 	}
 	@Test
@@ -84,7 +84,7 @@ public class AuthServiceTest {
 		String [] tokenizedToken = token.split(":");
 		Mockito.when(userRepo.findById(1)).thenReturn(emp);
 		assertEquals(Integer.valueOf(tokenizedToken[0]), 1);
-		assertEquals(tokenizedToken[1], "EMPLOYEE");
+		assertEquals("EMPLOYEE", tokenizedToken[1]);
 	}
 	
 	@Test
