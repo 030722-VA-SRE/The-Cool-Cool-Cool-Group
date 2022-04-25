@@ -1,10 +1,12 @@
 package com.revature.servicetest;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
+import com.revature.dto.UserDTO;
 import com.revature.exceptions.UserAlreadyExistsException;
 import com.revature.exceptions.UserNotFoundException;
 import com.revature.modals.Role;
@@ -77,6 +80,17 @@ public class AuthServiceTest {
 		String token = null;
 		assertThrows(UserNotFoundException.class, () -> authService.verifyCustomerToken(token));
 	}
+	
+	@Test
+	void failCustPrincipal() {
+		String token = "2:EMPLOYEE";
+		Users cust = new Users(1,"cust_name","pass",Role.CUSTOMER);
+		String[] tokenSplit = token.split(":");
+		Mockito.when(userRepo.findById(Integer.valueOf(tokenSplit[0]))).thenReturn(Optional.of(cust));
+		assertThrows(UserNotFoundException.class, () ->{
+			authService.verifyCustomerToken(token);
+		});
+	}
 	@Test
 	void verifyEmpToken() throws UserNotFoundException {
 		String token = "1:EMPLOYEE";
@@ -93,6 +107,26 @@ public class AuthServiceTest {
 		assertThrows(UserNotFoundException.class, () -> authService.verifyEmployee(token));
 	}
 	
+	@Test
+	void failEmpPrincipal() {
+		String token = "2:EMPLOYEE";
+		Users cust = new Users(1,"cust_name","pass",Role.CUSTOMER);
+		String[] tokenSplit = token.split(":");
+		Mockito.when(userRepo.findById(Integer.valueOf(tokenSplit[0]))).thenReturn(Optional.of(cust));
+		assertThrows(UserNotFoundException.class, () ->{
+			authService.verifyEmployee(token);
+		});
+	}
 	
+	@Test
+	void generateTokenTest() {
+		Users cust = new Users(1,"cust_name","pass",Role.CUSTOMER);
+		UserDTO user = new UserDTO(cust);
+		Mockito.when(userRepo.getById(cust.getUserID())).thenReturn(cust);
+		assertDoesNotThrow(() -> {
+			authService.generateToken(user);
+		});
+		
+	}
 	
 }
